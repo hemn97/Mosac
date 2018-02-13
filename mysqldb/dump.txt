@@ -1,0 +1,248 @@
+-- MySQL dump 10.13  Distrib 5.7.21, for Win64 (x86_64)
+--
+-- Host: localhost    Database: mosac
+-- ------------------------------------------------------
+-- Server version	5.7.21
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `posts`
+--
+
+DROP TABLE IF EXISTS `posts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `posts` (
+  `post_id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(20) DEFAULT NULL,
+  `content` varchar(200) DEFAULT NULL,
+  `author_id` int(11) DEFAULT NULL,
+  `time` varchar(16) DEFAULT NULL,
+  PRIMARY KEY (`post_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `posts`
+--
+
+LOCK TABLES `posts` WRITE;
+/*!40000 ALTER TABLE `posts` DISABLE KEYS */;
+/*!40000 ALTER TABLE `posts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `posts_comment`
+--
+
+DROP TABLE IF EXISTS `posts_comment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `posts_comment` (
+  `comment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `post_id` int(11) DEFAULT NULL,
+  `lightup_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`comment_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `posts_comment`
+--
+
+LOCK TABLES `posts_comment` WRITE;
+/*!40000 ALTER TABLE `posts_comment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `posts_comment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `posts_lightup`
+--
+
+DROP TABLE IF EXISTS `posts_lightup`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `posts_lightup` (
+  `post_id` int(11) NOT NULL,
+  `lightup_id` int(11) NOT NULL,
+  PRIMARY KEY (`post_id`,`lightup_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `posts_lightup`
+--
+
+LOCK TABLES `posts_lightup` WRITE;
+/*!40000 ALTER TABLE `posts_lightup` DISABLE KEYS */;
+/*!40000 ALTER TABLE `posts_lightup` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `posts_view`
+--
+
+DROP TABLE IF EXISTS `posts_view`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `posts_view` (
+  `post_id` int(11) NOT NULL,
+  `view_id` int(11) NOT NULL,
+  PRIMARY KEY (`post_id`,`view_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `posts_view`
+--
+
+LOCK TABLES `posts_view` WRITE;
+/*!40000 ALTER TABLE `posts_view` DISABLE KEYS */;
+/*!40000 ALTER TABLE `posts_view` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `team_applicationlist`
+--
+
+DROP TABLE IF EXISTS `team_applicationlist`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `team_applicationlist` (
+  `team_id` int(11) NOT NULL,
+  `teammate_id` int(11) NOT NULL,
+  PRIMARY KEY (`team_id`,`teammate_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `team_applicationlist`
+--
+
+LOCK TABLES `team_applicationlist` WRITE;
+/*!40000 ALTER TABLE `team_applicationlist` DISABLE KEYS */;
+/*!40000 ALTER TABLE `team_applicationlist` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `teammates`
+--
+
+DROP TABLE IF EXISTS `teammates`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `teammates` (
+  `team_id` int(11) NOT NULL,
+  `teammate_id` int(11) NOT NULL,
+  PRIMARY KEY (`team_id`,`teammate_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `teammates`
+--
+
+LOCK TABLES `teammates` WRITE;
+/*!40000 ALTER TABLE `teammates` DISABLE KEYS */;
+/*!40000 ALTER TABLE `teammates` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `teams`
+--
+
+DROP TABLE IF EXISTS `teams`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `teams` (
+  `team_id` int(11) NOT NULL AUTO_INCREMENT,
+  `captain_id` int(11) DEFAULT NULL,
+  `team_name` varchar(20) DEFAULT NULL,
+  `time` varchar(50) DEFAULT NULL,
+  `description` varchar(200) DEFAULT NULL,
+  `place` varchar(100) DEFAULT NULL,
+  `type` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`team_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `teams`
+--
+
+LOCK TABLES `teams` WRITE;
+/*!40000 ALTER TABLE `teams` DISABLE KEYS */;
+/*!40000 ALTER TABLE `teams` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) DEFAULT NULL,
+  `contact_number` varchar(16) DEFAULT NULL,
+  `email` varchar(20) DEFAULT NULL,
+  `department` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users_auths`
+--
+
+DROP TABLE IF EXISTS `users_auths`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users_auths` (
+  `user_id` int(11) NOT NULL,
+  `number` varchar(8) DEFAULT NULL,
+  `password` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `number` (`number`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users_auths`
+--
+
+LOCK TABLES `users_auths` WRITE;
+/*!40000 ALTER TABLE `users_auths` DISABLE KEYS */;
+/*!40000 ALTER TABLE `users_auths` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2018-02-13 20:50:01

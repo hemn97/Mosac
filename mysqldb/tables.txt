@@ -1,0 +1,98 @@
+用户信息表 users：
+	用户表内部id user_id
+	姓名 name
+	联系电话 contact_number
+	联系邮箱 email
+	学院 department
+	create table team_applicationlist(
+		user_id int AUTO_INCREMENT,
+		name varchar(20),
+		contact_number varchar(16),
+		email varchar(20),
+		department varchar(20),
+		PRIMARY KEY (user_id)
+	);
+用户授权表 users_auths:
+	用户id user_id
+	学号 number
+	密码 password
+	create table users_auths(
+		user_id int REFERENCES users(user_id) ON DELETE CASCADE,
+		number varchar(8) unique,
+		password varchar(20),
+		PRIMARY KEY (user_id)
+	);
+帖子信息表 posts：
+	帖子id post_id
+	标题 title
+	内容 content
+	作者id author_id
+	发布时间 time
+	create table posts(
+		post_id int AUTO_INCREMENT,
+		title varchar(20),
+		content varchar(200),
+		author_id int REFERENCES users(user_id) ON DELETE CASCADE,
+		time varchar(16),
+		PRIMARY KEY (post_id)
+	);
+帖子浏览表 posts_view:
+	帖子id post_id
+	浏览用户id view_id
+	create table posts_view(
+		post_id int REFERENCES posts(post_id) ON DELETE CASCADE,
+		view_id int REFERENCES users(user_id) ON DELETE CASCADE,
+		PRIMARY KEY (post_id, view_id)
+	);
+帖子点亮表 posts_lightup:
+	帖子id post_id
+	点亮用户id lightup_id
+	create table posts_lightup(
+		post_id int REFERENCES posts(post_id) ON DELETE CASCADE,
+		lightup_id int REFERENCES users(user_id) ON DELETE CASCADE,
+		PRIMARY KEY (post_id, lightup_id)
+	);
+帖子评论表 posts_comment:
+	评论表内部id comment_id
+	帖子id post_id
+	点亮用户id lightup_id
+	create table posts_comment(
+		comment_id int AUTO_INCREMENT,
+		post_id int REFERENCES posts(post_id) ON DELETE CASCADE,
+		lightup_id int REFERENCES users(user_id) ON DELETE CASCADE,
+		PRIMARY KEY (comment_id)
+	);
+活动组队信息表 teams:
+	组队表内部id team_id
+	队长id captain_id
+	队伍名字 team_name
+	活动时间 time
+	活动简述 description
+	活动地点 place
+	活动类型 type
+	create table teams(
+		team_id int AUTO_INCREMENT,
+		captain_id int REFERENCES users(user_id) ON DELETE CASCADE,
+		team_name varchar(20),
+		time varchar(50),
+		description varchar(200),
+		place varchar(100),
+		type varchar(10),
+		PRIMARY KEY (team_id)
+	);
+队伍队员信息表 teammates:
+	队伍id team_id
+	队员id teammate_id
+	create table teammates(
+		team_id int REFERENCES teams(team_id) ON DELETE CASCADE,
+		teammate_id int REFERENCES users(user_id) ON DELETE CASCADE,
+		PRIMARY KEY (team_id, teammate_id)
+	);
+队伍申请列表 team_applicationlist:
+	队伍id team_id
+	队员id teammate_id
+	create table team_applicationlist(
+		team_id int REFERENCES teams(team_id) ON DELETE CASCADE,
+		teammate_id int REFERENCES users(user_id) ON DELETE CASCADE,
+		PRIMARY KEY (team_id, teammate_id)
+	);
