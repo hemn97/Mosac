@@ -1,3 +1,9 @@
+ALTER TABLE `users` CHANGE `name` `name` varchar(18) character set utf8;
+ALTER TABLE `users` CHANGE `department` `department` varchar(18) character set utf8;
+insert into users(name, contact_number, email, department) values('何敏念', '18681192029', 'hemn97@outlook.com', '数据科学与计算机学院');
+
+ALTER TABLE `posts` CHANGE `title` `title` VARCHAR(60) CHARACTER SET utf8; 
+ALTER TABLE `posts` CHANGE `content` `content` VARCHAR(360) CHARACTER SET utf8; 
 insert into posts(title, content, author_id, time) values('狗年旺旺', '祝大家狗年旺旺', 1, '2018/2/15');
 insert into posts(title, content, author_id, time) values('杜兰特真厉害啊！现役最强得分手', '如题 zszs', 1, '2018/2/15 16:02');
 insert into posts(title, content, author_id, time) values('理性讨论，哪个区的封面最好看', '如题 zszs', 1, '2018/2/15 17:00');

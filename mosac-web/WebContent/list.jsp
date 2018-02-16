@@ -6,13 +6,14 @@
 </head>
 <body>
     <h3 align="center" >帖子列表</h3>
-    <table border="1" width="80%" align="center">
+    <table border="1" width="100%" align="center">
         <tr>
             <th>帖子id</th>
             <th>标题</th>
             <th>内容</th>
             <th>作者id</th>
             <th>时间</th>
+            <th>操作</th>
         </tr>
         <c:forEach items="${pb.beanList}" var="post">
         <tr>
@@ -21,6 +22,10 @@
             <td>${post.contentDescription}</td>
             <td>${post.author_id}</td>
             <td>${post.time}</td>
+            <td>
+            	<a href="<c:url value='/PostServlet?method=preEdit&post_id=${post.post_id}'/> ">编辑</a>
+                <a href="<c:url value='/PostServlet?method=delete&post_id=${post.post_id}'/> ">删除</a>
+            </td>
         </tr>
         </c:forEach>
     </table>
