@@ -25,7 +25,7 @@ public class PostServlet extends BaseServlet  {
 
         postService.edit(post);
 
-        request.setAttribute("msg", "编辑客户成功");
+        request.setAttribute("msg", "编辑帖子成功");
         request.setAttribute("lastUrl", "/mosac/PostServlet?method=findAll");
         return "/msg.jsp";
     }
@@ -36,7 +36,7 @@ public class PostServlet extends BaseServlet  {
 
         request.setAttribute("post", post);
 
-        return "/edit.jsp";
+        return "/postEdit.jsp";
     }
     
     public String findAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -54,7 +54,7 @@ public class PostServlet extends BaseServlet  {
         pb.setUrl(getUrl(request));
 
         request.setAttribute("pb", pb);
-        return "f:/list.jsp";
+        return "f:/postList.jsp";
     }
 
     private int getPc(HttpServletRequest request) {

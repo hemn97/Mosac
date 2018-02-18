@@ -9,6 +9,7 @@ public class Post {
     private String title;
     private String content;
     private String author_id;
+    private String name;
     private String time;
     private String contentDescription;
 
@@ -52,6 +53,14 @@ public class Post {
 
     public void setAuthor_id(String author_id) {
         this.author_id = author_id;
+    }
+    
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getTime() {

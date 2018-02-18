@@ -4,14 +4,15 @@
 <head>
     <title>帖子列表</title>
 </head>
+<link rel="stylesheet" type="text/css" href="styles/postList.css"/>
 <body>
     <h3 align="center" >帖子列表</h3>
-    <table border="1" width="100%" align="center">
+    <table>
         <tr>
-            <th>帖子id</th>
+            <th>id</th>
             <th>标题</th>
             <th>内容</th>
-            <th>作者id</th>
+            <th>作者</th>
             <th>时间</th>
             <th>操作</th>
         </tr>
@@ -20,7 +21,7 @@
             <td>${post.post_id}</td>
             <td>${post.title}</td>
             <td>${post.contentDescription}</td>
-            <td>${post.author_id}</td>
+            <td>${post.name}</td>
             <td>${post.time}</td>
             <td>
             	<a href="<c:url value='/PostServlet?method=preEdit&post_id=${post.post_id}'/> ">编辑</a>

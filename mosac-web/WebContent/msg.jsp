@@ -8,6 +8,6 @@
 </head>
 <body style="text-align: center;">
 <h1 style="color:green;">${msg}</h1>
-<a href="${lastUrl}">返回上一页</a>
+<a href="${lastUrl}">返回</a>
 </body>
 </html>
