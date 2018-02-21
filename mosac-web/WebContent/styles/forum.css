@@ -1,0 +1,28 @@
+.admin_box{
+	width:960px;
+	height:460px;
+	margin:0 auto;
+	background-color:#1D1D1D;
+}
+
+.content_empty{
+	height:30px;
+}
+
+.admin_box .left{
+	width:119px;
+	height:100%;
+	float:left;
+	border-right:2px solid;
+}
+
+.admin_box .right{
+	width:839px;
+	height:100%;
+	float:left;
+
+}
+
+.active{
+	background: red;
+}

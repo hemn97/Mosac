@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>mosac</name>
+	<name>mosac-web</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -28,4 +28,21 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>WebContent/images/bg.jpg</name>
+			<type>1</type>
+			<location>E:/EclipseRepos/mosac-web/WebContent/images/bg.jpg</location>
+		</link>
+		<link>
+			<name>WebContent/images/mosac2.png</name>
+			<type>1</type>
+			<location>E:/EclipseRepos/mosac-web/WebContent/images/mosac2.png</location>
+		</link>
+		<link>
+			<name>WebContent/images/nav_bg.png</name>
+			<type>1</type>
+			<location>E:/EclipseRepos/mosac-web/WebContent/images/nav_bg.png</location>
+		</link>
+	</linkedResources>
 </projectDescription>

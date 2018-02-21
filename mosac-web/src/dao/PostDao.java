@@ -3,6 +3,8 @@ package dao;
 import cn.itcast.jdbc.TxQueryRunner;
 import domain.PageBean;
 import domain.Post;
+
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
@@ -17,6 +19,43 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 public class PostDao {
     private QueryRunner qr = new TxQueryRunner();
 	
+    public PageBean<Post> FuzzyQuery(int pc, int pr, String keyword)
+    {
+        try{
+            PageBean<Post> pb=new PageBean<>();
+            pb.setPc(pc);	// 设置当前页码
+            pb.setPr(pr);	// 设置每页记录数
+            
+            StringBuilder cntSql = new StringBuilder("select count(*) from view_post ");
+            StringBuilder whereSql=new StringBuilder(" where 1=1 ");
+            List<Object> params = new ArrayList<>();
+            
+            if (!keyword.equals("")) {
+                whereSql.append("and title like ?");
+                params.add("%" + keyword + "%");
+            }
+            
+            Number num=qr.query(cntSql.append(whereSql).toString(),new ScalarHandler<>(),params.toArray());
+            
+            int tr=num.intValue();
+            pb.setTr(tr);
+
+            StringBuilder sql=new StringBuilder("select * from view_post ");
+            StringBuilder lmitSql=new StringBuilder(" limit ?,?");
+
+            params.add((pc-1)*pr);
+            params.add(pr);
+            
+            List<Post> beanList=qr.query(sql.append(whereSql).append(lmitSql).toString(),new BeanListHandler<Post>(Post.class),params.toArray());
+            pb.setBeanList(beanList);
+
+            return pb;
+        }catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+    
     public void edit(Post post)
     {
         try{

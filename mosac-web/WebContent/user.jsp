@@ -8,7 +8,7 @@
 </head>
 
 <link rel="stylesheet" type="text/css" href="styles/index.css"/>
-
+<link rel="stylesheet" type="text/css" href="styles/group.css"/>
 <body>
 <!-- 头部 -->
 <div id="header">
@@ -34,6 +34,11 @@
 <div id="main">
 	<div class="main container">
 		<div class="content_container">
+			<div class="content_empty"></div>
+			<div class="admin_box">
+				
+			</div>
+			<div class="content_empty"></div>
 		</div>
 	</div>
 </div>

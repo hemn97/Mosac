@@ -6,7 +6,6 @@
 </head>
 <link rel="stylesheet" type="text/css" href="styles/postList.css"/>
 <body>
-    <h3 align="center" >帖子列表</h3>
     <table>
         <tr>
             <th>id</th>

@@ -11,6 +11,11 @@ import domain.Post;
 public class PostService {
     PostDao postDao = new PostDao();
     
+    public PageBean<Post> FuzzyQuery(int pc, int pr, String keyword)
+    {
+    	return postDao.FuzzyQuery(pc, pr, keyword);
+    }
+    
     public void edit(Post post)
     {
     	postDao.edit(post);

@@ -1,0 +1,10 @@
+.admin_box{
+	width:960px;
+	height:460px;
+	margin:0 auto;
+	background-color:#1D1D1D;
+}
+
+.content_empty{
+	height:30px;
+}

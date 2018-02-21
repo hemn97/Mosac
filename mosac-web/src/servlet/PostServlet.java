@@ -5,6 +5,7 @@ import cn.itcast.servlet.BaseServlet;
 import domain.PageBean;
 import domain.Post;
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,21 @@ import service.PostService;
 @WebServlet("/PostServlet")
 public class PostServlet extends BaseServlet  {
     private PostService postService = new PostService();
+    
+    public String FuzzyQuery(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+         int pc = getPc(request);
+
+         int pr = 10;//给定pr的值，每页10行纪录
+
+         String keyword = new String(request.getParameter("keyword").getBytes("ISO-8859-1"),"utf-8");
+         System.out.println(keyword);
+         PageBean<Post> pb = postService.FuzzyQuery(pc, pr, keyword);
+         pb.setUrl(getUrl(request));
+
+         request.setAttribute("pb", pb);
+         return "f:/postList.jsp";
+    }
     
     public String edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
