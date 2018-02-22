@@ -2,7 +2,7 @@
 	width:960px;
 	height:460px;
 	margin:0 auto;
-	background-color:#1D1D1D;
+	background-color:#ffffff;
 }
 
 .content_empty{
@@ -25,4 +25,10 @@
 
 .active{
 	background: red;
+}
+
+iframe{
+	width:836px;
+	height:458px;
+	margin:0 auto;
 }

@@ -1,0 +1,86 @@
+.top{
+	width:820px;
+	height:70px;
+}
+
+.top .left{
+	width:50%;
+	vertical-align: middle;
+	float:left;
+}
+
+.top .right{
+	width:50%;
+	float:left;
+	vertical-align: middle;
+}
+
+.top .left img{
+	display:inline-block;
+}
+
+.top .right img{
+	float:right;
+	margin-top:14px;
+	margin-right:6px;
+}
+.top .right a:nth-child(1){
+	float:right;
+	color:#408080;
+	margin-top:20px;
+	margin-right:20px;
+	text-decoration:none;
+}
+
+.top h3{
+	color:#408080;
+	display:inline-block;
+}
+
+.clear{
+	margin-top:-13px;
+}
+
+.data{
+	font:15px;
+}
+
+label{
+	display:block;
+	margin-top:5px;
+	margin-bottom:10px;
+}
+
+label input{
+	border-radius:2px;
+}
+
+label textarea{
+	border-radius:2px;
+	resize:none;
+	outline:none;
+	width:500px;
+	height:200px;
+	vertical-align:top;
+	font:15px;
+}
+
+label input[type=text]{
+	width:500px;
+}
+
+label input[type=submit], label input[type=reset]{
+	background-color:#FF8080;
+	color:white;
+	width:80px;
+	height:40px;
+}
+
+.buttongroup{
+	margin:0 auto;
+	width:180px;
+}
+
+#titleError, #contentError{
+	color:red;
+}

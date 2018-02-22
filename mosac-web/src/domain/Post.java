@@ -11,7 +11,6 @@ public class Post {
     private String author_id;
     private String name;
     private String time;
-    private String contentDescription;
 
     public String getPost_id() {
         return post_id;
@@ -35,18 +34,8 @@ public class Post {
 
     public void setContent(String content) {
         this.content = content;
-        if(content.length() > 10) {
-        	this.contentDescription = content.substring(0, 10);
-        	this.contentDescription += "...";
-        } else {
-        	this.contentDescription = content;
-        }
     }
     
-    public String getContentDescription() {
-        return contentDescription;
-    }
-
     public String getAuthor_id() {
         return author_id;
     }

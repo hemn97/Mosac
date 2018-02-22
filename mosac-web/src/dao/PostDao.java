@@ -19,7 +19,7 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 public class PostDao {
     private QueryRunner qr = new TxQueryRunner();
 	
-    public PageBean<Post> FuzzyQuery(int pc, int pr, String keyword)
+    public PageBean<Post> FuzzyQuery(int pc, int pr, String selectType, String keyword)
     {
         try{
             PageBean<Post> pb=new PageBean<>();
@@ -30,10 +30,14 @@ public class PostDao {
             StringBuilder whereSql=new StringBuilder(" where 1=1 ");
             List<Object> params = new ArrayList<>();
             
-            if (!keyword.equals("")) {
-                whereSql.append("and title like ?");
-                params.add("%" + keyword + "%");
+            if(selectType.equals("title")) {
+            	whereSql.append("and title like ?");
+            } else if(selectType.equals("content")) {
+            	whereSql.append("and content like ?");
+            } else if(selectType.equals("author")) {
+            	whereSql.append("and name like ?");
             }
+            params.add("%" + keyword + "%");
             
             Number num=qr.query(cntSql.append(whereSql).toString(),new ScalarHandler<>(),params.toArray());
             

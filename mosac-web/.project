@@ -30,9 +30,19 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>WebContent/images/back.png</name>
+			<type>1</type>
+			<location>E:/EclipseRepos/mosac-web/WebContent/images/back.png</location>
+		</link>
+		<link>
 			<name>WebContent/images/bg.jpg</name>
 			<type>1</type>
 			<location>E:/EclipseRepos/mosac-web/WebContent/images/bg.jpg</location>
+		</link>
+		<link>
+			<name>WebContent/images/edit.png</name>
+			<type>1</type>
+			<location>E:/EclipseRepos/mosac-web/WebContent/images/edit.png</location>
 		</link>
 		<link>
 			<name>WebContent/images/mosac2.png</name>
@@ -43,6 +53,16 @@
 			<name>WebContent/images/nav_bg.png</name>
 			<type>1</type>
 			<location>E:/EclipseRepos/mosac-web/WebContent/images/nav_bg.png</location>
+		</link>
+		<link>
+			<name>WebContent/images/posts.png</name>
+			<type>1</type>
+			<location>E:/EclipseRepos/mosac-web/WebContent/images/posts.png</location>
+		</link>
+		<link>
+			<name>WebContent/images/search.png</name>
+			<type>1</type>
+			<location>E:/EclipseRepos/mosac-web/WebContent/images/search.png</location>
 		</link>
 	</linkedResources>
 </projectDescription>

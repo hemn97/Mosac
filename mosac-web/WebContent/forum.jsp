@@ -31,7 +31,6 @@
             }
         }
 	};
-	$(".des" ).load( "demo.html" );
 </script>
 
 <body>
@@ -70,9 +69,11 @@
 				<div class="right">
 					<div id="workspace">
 		                <div style="display:block">
-							<div class="des"></div>
+							<iframe frameborder="0" src="/mosac-web/PostServlet?method=findAll"></iframe>
 						</div>
-		                <div style="display:none">Query</div>
+		                <div style="display:none">
+							<iframe frameborder="0" src="queryPost.jsp"></iframe>
+						</div>
             		</div>
 				</div>
 			</div>

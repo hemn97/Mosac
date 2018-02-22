@@ -1,10 +1,10 @@
-用户信息表 users：
+﻿用户信息表 users：
 	用户表内部id user_id
 	姓名 name
 	联系电话 contact_number
 	联系邮箱 email
 	学院 department
-	create table team_applicationlist(
+	create table users(
 		user_id int AUTO_INCREMENT,
 		name varchar(20),
 		contact_number varchar(16),

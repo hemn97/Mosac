@@ -25,14 +25,15 @@ public class PostServlet extends BaseServlet  {
          int pc = getPc(request);
 
          int pr = 10;//给定pr的值，每页10行纪录
+         
+         String selectType = request.getParameter("selectType");
+         String keyword = request.getParameter("keyword");
 
-         String keyword = new String(request.getParameter("keyword").getBytes("ISO-8859-1"),"utf-8");
-         System.out.println(keyword);
-         PageBean<Post> pb = postService.FuzzyQuery(pc, pr, keyword);
+         PageBean<Post> pb = postService.FuzzyQuery(pc, pr, selectType, keyword);
          pb.setUrl(getUrl(request));
 
          request.setAttribute("pb", pb);
-         return "f:/postList.jsp";
+         return "f:/queryPostRes.jsp";
     }
     
     public String edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -42,8 +43,8 @@ public class PostServlet extends BaseServlet  {
         postService.edit(post);
 
         request.setAttribute("msg", "编辑帖子成功");
-        request.setAttribute("lastUrl", "/mosac/PostServlet?method=findAll");
-        return "/msg.jsp";
+
+        return "/msgPost.jsp";
     }
     
     public String preEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -51,8 +52,8 @@ public class PostServlet extends BaseServlet  {
         Post post = postService.find(post_id);
 
         request.setAttribute("post", post);
-
-        return "/postEdit.jsp";
+        
+        return "/editPost.jsp";
     }
     
     public String findAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -70,7 +71,7 @@ public class PostServlet extends BaseServlet  {
         pb.setUrl(getUrl(request));
 
         request.setAttribute("pb", pb);
-        return "f:/postList.jsp";
+        return "f:/findPosts.jsp";
     }
 
     private int getPc(HttpServletRequest request) {
@@ -106,7 +107,7 @@ public class PostServlet extends BaseServlet  {
         postService.delete(post_id);
 
         request.setAttribute("msg", "删除帖子成功");
-        request.setAttribute("lastUrl", "/mosac/PostServlet?method=findAll");
-        return "/msg.jsp";
+
+        return "/msgPost.jsp";
     }
 }
