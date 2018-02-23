@@ -30,6 +30,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>WebContent/images/admin.png</name>
+			<type>1</type>
+			<location>E:/EclipseRepos/mosac-web/WebContent/images/admin.png</location>
+		</link>
+		<link>
 			<name>WebContent/images/back.png</name>
 			<type>1</type>
 			<location>E:/EclipseRepos/mosac-web/WebContent/images/back.png</location>
@@ -63,6 +68,11 @@
 			<name>WebContent/images/search.png</name>
 			<type>1</type>
 			<location>E:/EclipseRepos/mosac-web/WebContent/images/search.png</location>
+		</link>
+		<link>
+			<name>WebContent/images/select.png</name>
+			<type>1</type>
+			<location>E:/EclipseRepos/mosac-web/WebContent/images/select.png</location>
 		</link>
 	</linkedResources>
 </projectDescription>

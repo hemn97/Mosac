@@ -61,6 +61,10 @@
 			<div class="content_empty"></div>
 			<div class="admin_box">
 				<div class="left">
+					<div class="top">
+						<img src="images/admin.png" />
+					</div>
+					<hr />
 					<ul id="sidebar">
 						<li class="active">帖子管理</li>
 						<li>查询帖子</li>

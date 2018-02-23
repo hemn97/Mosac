@@ -3,6 +3,7 @@
 	height:460px;
 	margin:0 auto;
 	background-color:#ffffff;
+	border-radius:15px;
 }
 
 .content_empty{
@@ -10,25 +11,52 @@
 }
 
 .admin_box .left{
-	width:119px;
+	width:116px;
 	height:100%;
 	float:left;
-	border-right:2px solid;
+	background-color:#00ffff;
+	box-shadow: 2px 2px 2px #888888;
+	border:2px solid;
+	border-top-left-radius:12px;
+	border-bottom-left-radius:12px;
+	border-color:#008080;
 }
 
 .admin_box .right{
 	width:839px;
 	height:100%;
 	float:left;
-
 }
 
 .active{
-	background: red;
+	list-style-image:url(../images/select.png);
+	background-color:#408080;
 }
 
 iframe{
 	width:836px;
 	height:458px;
 	margin:0 auto;
+}
+
+#sidebar li{
+	list-style-type:none;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+#sidebar{
+	width:66px;
+	margin:0 auto;
+}
+
+.left .top{
+	margin-top:5px;
+	height:60px;
+	width:100%;
+	text-align:center;
+}
+
+.left hr{
+	color:#0080ff;
 }
