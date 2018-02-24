@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/subtle_pattern">
+    <LinearLayout
+        android:id="@+id/ly1"
+        android:gravity="center"
+        android:background="#252525"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:text="@string/insertPostTitle"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:textColor="#FFF"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <LinearLayout
+        android:gravity="center"
+        android:layout_marginLeft="5dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp">
+        <TextView
+            android:id="@+id/cancel"
+            android:text="@string/cancel"
+            android:textColor="#FFF"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:layout_marginRight="5dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp">
+        <TextView
+            android:id="@+id/ok"
+            android:text="@string/ok"
+            android:textColor="#FFF"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"/>
+    </LinearLayout>
+    <View
+        android:id="@+id/div"
+        android:layout_below="@id/ly1"
+        android:background="#6e303030"
+        android:layout_width="match_parent"
+        android:layout_height="2dp">
+    </View>
+    <EditText
+        android:id="@+id/title"
+        android:hint="@string/titleHint"
+        android:maxLength="15"
+        android:layout_below="@id/ly1"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp" />
+    <EditText
+        android:id="@+id/content"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="380dp"
+        android:maxLength="200"
+        android:layout_below="@id/title"
+        android:gravity="top|left"
+        android:hint="@string/contentHint" />
+</RelativeLayout>

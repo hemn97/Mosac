@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/subtle_pattern">
+    <TextView
+        android:id="@+id/teamname"
+        android:text="MY TEAM NAME"
+        android:textColor="#FFF"
+        android:background="#252525"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+    <View
+        android:id="@+id/top_div"
+        android:layout_below="@id/teamname"
+        android:background="#6e303030"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="2dp">
+    </View>
+
+    <RelativeLayout
+        android:layout_below="@id/top_div"
+        android:id="@+id/description_ly"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            android:id="@+id/top_div2"
+            android:background="#6e303030"
+            android:layout_width="match_parent"
+            android:layout_height="2dp">
+        </View>
+        <TextView
+            android:id="@+id/description_title"
+            android:layout_below="@id/top_div2"
+            android:text="@string/description"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+        <View
+            android:id="@+id/description_div"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_below="@id/description_title"
+            android:background="#6e303030"
+            android:layout_width="match_parent"
+            android:layout_height="1dp">
+        </View>
+        <TextView
+            android:layout_margin="16dp"
+            android:layout_below="@id/description_div"
+            android:id="@+id/description"
+            android:textSize="20sp"
+            android:text="We will do what in sw. when tomorrow, and i need someone to go with me, will you join us?"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <View
+            android:id="@+id/description_bottomdiv"
+            android:layout_below="@id/description"
+            android:background="#6e303030"
+            android:layout_width="match_parent"
+            android:layout_height="2dp">
+        </View>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/teammsg_ly"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_below="@id/description_ly"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/teammsg_title"
+            android:text="@string/teammessage"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+        <View
+            android:id="@+id/msg_div2"
+            android:layout_below="@id/teammsg_title"
+            android:background="#6e303030"
+            android:layout_width="match_parent"
+            android:layout_height="1dp">
+        </View>
+        <LinearLayout
+            android:id="@+id/captain_ly"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/msg_div2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="@string/capatin"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/captainname"
+                android:text="CAPTAIN"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/time_ly"
+            android:layout_below="@id/captain_ly"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="@string/time"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/time"
+                android:text="2018/1/1 Monday"
+                android:textSize="13sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/place_ly"
+            android:layout_below="@id/time_ly"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="@string/place"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/place"
+                android:text="IN SCHOOL"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/nownum_ly"
+            android:layout_below="@id/place_ly"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="@string/nownum"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/nownum"
+                android:text="123"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/maxnum_ly"
+            android:layout_below="@id/nownum_ly"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="@string/maxnum"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/maxnum"
+                android:text="321"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </RelativeLayout>
+    <View
+        android:id="@+id/bottom_div"
+        android:layout_below="@id/teammsg_ly"
+        android:background="#6e303030"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="2dp">
+    </View>
+    <LinearLayout
+        android:layout_below="@id/bottom_div"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/teammates"
+            android:text="@string/myteammates"
+            android:textSize="20sp"
+            android:textColor="#ffffff"
+            android:background="@drawable/button1"
+            android:layout_marginRight="5dp"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/leave"
+            android:text="@string/leave"
+            android:textSize="20sp"
+            android:textColor="#ffffff"
+            android:background="@drawable/button1"
+            android:layout_marginLeft="5dp"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</RelativeLayout>

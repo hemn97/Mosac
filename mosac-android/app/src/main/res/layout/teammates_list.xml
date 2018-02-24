@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/subtle_pattern">
+    <TextView
+        android:text="@string/captainMsg"
+        android:textColor="@color/textLevel1"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:background="@color/titleBg"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/division">
+    </View>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/captain_name"
+                android:text="@string/username"
+                android:textColor="@color/textLevel2"
+                android:textSize="16sp"
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+            <TextView
+                android:id="@+id/captain_department"
+                android:text="@string/department"
+                android:textColor="@color/textLevel2"
+                android:textSize="16sp"
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+            <TextView
+                android:id="@+id/captain_email"
+                android:text="@string/email"
+                android:textColor="@color/textLevel2"
+                android:textSize="16sp"
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#6e303030">
+    </View>
+    <TextView
+        android:text="@string/teammateMsg"
+        android:textColor="@color/textLevel1"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:background="@color/titleBg"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/division">
+    </View>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/teammateslist"
+        android:layout_marginStart="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>

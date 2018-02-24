@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/title"
+        android:text="@string/comment"
+        android:textColor="#FFF"
+        android:background="#252525"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+    <View
+        android:id="@+id/top_div"
+        android:layout_below="@id/teamname"
+        android:background="#6e303030"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="2dp">
+    </View>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/commentlistview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title"
+        android:layout_above="@+id/comment"
+        android:background="@drawable/subtle_pattern">
+    </android.support.v7.widget.RecyclerView>
+    <RelativeLayout
+        android:id="@+id/emptyComment"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        android:layout_below="@id/title"
+        android:layout_above="@+id/comment"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+        <TextView
+            android:textSize="20sp"
+            android:gravity="center"
+            android:text="@string/emptyComment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/comment"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:background="#252525">
+        <ImageView
+            android:src="@drawable/newcomment"
+            android:layout_width="24dp"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/comment_text"
+            android:gravity="center"
+            android:text="@string/comment"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#f99442"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</RelativeLayout>
