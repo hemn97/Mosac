@@ -32,7 +32,22 @@
         }
 	};
 </script>
-
+<%
+    Cookie[] cookies=request.getCookies();
+    boolean flag=false;
+    if(cookies!=null){
+	    for(int i=0;i<cookies.length;i++) {
+	        if(cookies[i].getName().equals("admin_id")){
+		        //如果cookie与保存的相等，即找到cookie
+		        flag=true;
+		        break;
+	    	}
+	    }
+    }
+    if(flag==false){
+    	response.sendRedirect("welcome.jsp");
+    }//如果没找到cookie，就返回登陆界面 
+%>
 <body>
 <!-- 头部 -->
 <div id="header">

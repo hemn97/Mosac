@@ -1,0 +1,132 @@
+#header{
+	height:56px;
+	background:#1D1D1D;
+}
+
+.header.container{
+	width:500px;
+	height:100%;
+	margin:0 auto;
+	text-align:center;
+	color:white;
+}
+
+.nav{
+	float:left;
+	height:100%;
+}
+
+.nav.left{
+	width:41%;
+}
+.nav.right{
+	width:42%;
+}
+
+#logo{
+	height:56px;
+}
+
+.content_container{
+	height:520px;
+	background:url(../images/bg.jpg);
+}
+
+.footer {
+	line-height:42px;
+	height:42px;
+	text-align:center;
+	background-color:#000000;
+	color:#ffffff;
+}
+
+.login_container{
+	width:320px;
+	height:280px;
+	margin:0 auto;
+	background-color:#cccccc;
+	border-radius:15px;
+}
+
+.content_empty{
+	height:120px;
+}
+
+form{
+	background: #cccccc;
+	width: 320px;
+	height: 280px;
+	box-shadow:0px 1px 2px 1px #aaaaaa, inset 0px 1px 1px rgba(255,255,255,0.7);
+	border-radius: 3px;
+}
+
+ul{
+	list-style-type:none;
+}
+
+ul li{
+	margin-top:20px;
+	margin-bottom:20px;
+}
+
+.title{
+	width:320px;
+	text-align:center;
+	padding-top:15px;
+}
+
+ul li div{ 
+	width: 245px; 
+	height: 40px; 
+	background: #e1dcd8; 
+	color: rgb(98,94,91); 
+	box-shadow: inset 0px 2px 5px #aaaaaa; 
+	border-radius: 5px; position: relative; 
+} 
+
+ul li .username, ul li .password{ 
+	font-family: iconfont; 
+}
+
+ul li div input{ 
+	height: 40px; 
+	width: 175px; 
+	padding: 0 35px; 
+	border: none; 
+	background: #e1dcd8; 
+	color: rgb(98,94,91); 
+	box-shadow: 0px 1px 1px rgba(255,255,255,0.7), inset 0px 2px 5px #aaaaaa; 
+	border-radius: 5px; 
+} 
+
+ul li input:focus{ 
+	outline: none; 
+	background: #f5f2ef; 
+}
+
+ul li input[type*="submit"]{ 
+	width: 245px; 
+	height: 40px; 
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size: 18px; 
+	color: #ffffff; 
+	background: -moz-linear-gradient( top, #94aa64 0%, #7a924a 50%, #607738); 
+	background: -webkit-gradient( linear, left top, left bottom, from(#94aa64), color-stop(0.50, #7a924a), to(#607738)); 
+	-moz-border-radius: 5px; 
+	-webkit-border-radius: 5px; 
+	border-radius: 5px; 
+	border: 1px solid #7d8862; 
+	-moz-box-shadow: 0px 1px 0px rgba(170,170,170,1), inset 0px 1px 1px rgba(255,255,255,0.7); 
+	-webkit-box-shadow: 0px 1px 0px rgba(170,170,170,1), inset 0px 1px 1px rgba(255,255,255,0.7); 
+	box-shadow: 0px 1px 0px rgba(170,170,170,1), inset 0px 1px 1px rgba(255,255,255,0.7); 
+	text-shadow: 0px -1px 0px rgba(000,000,000,0.3), 0px 0px 0px rgba(255,255,255,0); 
+}
+
+ul li input[type*="submit"]:hover{ 
+	opacity: 0.8; 
+}
+
+h5{
+	text-align:center;
+	display:block;
+}
