@@ -1,12 +1,11 @@
-# Mosac #
-----------
+# Mosac
 ## 项目内容
 包含面向用户的Android端以及面向管理员的Web端
 ## 数据库
 使用MySQL数据库进行存储数据
 ## Web端
 **开发工具** </br>
-Eclipse
+Eclipse </br>
 **导入第三方包** </br>
 ------mosac-web </br>
 ------------WebContent </br>
