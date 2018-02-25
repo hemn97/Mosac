@@ -83,6 +83,8 @@
 					<ul id="sidebar">
 						<li class="active">帖子管理</li>
 						<li>查询帖子</li>
+						<li>评论管理</li>
+						<li>查询评论</li>
 					</ul>
 				</div>
 				<div class="right">
@@ -92,6 +94,12 @@
 						</div>
 		                <div style="display:none">
 							<iframe frameborder="0" src="queryPost.jsp"></iframe>
+						</div>
+						<div style="display:none">
+							<iframe frameborder="0" src="/mosac-web/CommentServlet?method=findAll"></iframe>
+						</div>
+						<div style="display:none">
+							<iframe frameborder="0" src="queryComment.jsp"></iframe>
 						</div>
             		</div>
 				</div>

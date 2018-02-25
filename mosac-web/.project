@@ -45,6 +45,11 @@
 			<location>E:/EclipseRepos/mosac-web/WebContent/images/bg.jpg</location>
 		</link>
 		<link>
+			<name>WebContent/images/comment.png</name>
+			<type>1</type>
+			<location>E:/EclipseRepos/mosac-web/WebContent/images/comment.png</location>
+		</link>
+		<link>
 			<name>WebContent/images/edit.png</name>
 			<type>1</type>
 			<location>E:/EclipseRepos/mosac-web/WebContent/images/edit.png</location>

@@ -1,0 +1,112 @@
+.top{
+	width:820px;
+	height:70px;
+}
+
+.top .left{
+	width:50%;
+	vertical-align: middle;
+	float:left;
+}
+
+.top .right{
+	width:50%;
+	float:left;
+	vertical-align: middle;
+}
+
+.top .left img{
+	display:inline-block;
+}
+
+.top .right img{
+	float:right;
+	margin-top:14px;
+	margin-right:6px;
+}
+.top .right a:nth-child(1){
+	float:right;
+	color:#408080;
+	margin-top:20px;
+	margin-right:20px;
+	text-decoration:none;
+}
+
+.top h3{
+	color:#408080;
+	display:inline-block;
+}
+
+.clear hr{
+	margin-top:-6px;
+}
+
+.data table, .data th, .data td{
+	border: 1px solid black; 
+}
+
+.data table{
+	border-collapse: collapse;
+	margin-left:10px;
+	font-size:0.8em;
+	table-layout:fixed;
+}
+
+.data th{
+	height:40px;
+	width:50px;
+	background-color:#C0C0C0;
+}
+.data td{
+	height:25px;
+	background-color:#DDF0F0;
+}
+
+.data th:nth-child(4){
+	width:580px;
+}
+
+.data td:nth-child(1){
+	text-align:center;
+}
+.data td:nth-child(2){
+	text-align:center;
+}
+.data td:nth-child(3){
+	text-align:center;
+	width:60px;
+}
+.data td:nth-child(4){
+	height:50px;
+    overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */  
+    text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记(...) */
+}
+.data td:nth-child(5){
+	text-align:center;
+}
+
+center{
+	color:blue;
+}
+
+center a:link, center a:visited{
+	color:blue;
+	text-decoration:none;
+}
+
+.data a:link, .data a:visited, .data a:active{
+	text-decoration:none;
+	color:blue;
+}
+
+#cur{
+	color:black;
+}
+
+.data{
+	height:340px;
+}
+
+#form1{
+	display:none;
+}

@@ -52,9 +52,9 @@ public class PostDao {
             pb.setTr(tr);
             
             int m = (pc-1)*pr;
-            StringBuilder sql=new StringBuilder("select top " + Integer.toString(m+pr) + " * from view_post ");
+            StringBuilder sql=new StringBuilder("select top " + Integer.toString(pr) + " * from view_post ");
             StringBuilder extraSql=new StringBuilder(" and post_id not in (select top " + 
-            		Integer.toString(m) + " post_id from view_post)");
+            		Integer.toString(m) + " post_id from view_post order by post_id) order by post_id");
             
             List<Post> beanList=qr.query(sql.append(whereSql).append(extraSql).toString(),new BeanListHandler<Post>(Post.class),params.toArray());
             pb.setBeanList(beanList);
@@ -121,10 +121,9 @@ public class PostDao {
             int tr=number.intValue();
             pb.setTr(tr);
             // 查询当前页码的结果，保存在beanList中
-            // 取第m条到n条，m=(pc-1)*pr, n=m+pr
             int m = (pc-1)*pr;
-            sql = "select top " + Integer.toString(m+pr) + " * from view_post where post_id not in (select top "
-                	+ Integer.toString(m) + " post_id from view_post)";
+            sql = "select top " + Integer.toString(pr) + " * from view_post where post_id not in (select top "
+                	+ Integer.toString(m) + " post_id from view_post order by post_id) order by post_id";
             List<Post> beanList=qr.query(sql, new BeanListHandler<>(Post.class));
 
             pb.setBeanList(beanList);
