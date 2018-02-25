@@ -1,0 +1,17 @@
+insert into posts(title, content, author_id, time) values('狗年旺旺', '祝大家狗年旺旺', 1, '2018/2/15 16:02');
+insert into posts(title, content, author_id, time) values('杜兰特真厉害啊！现役最强得分手', '如题 zszs', 1, '2018/2/15 16:02');
+insert into posts(title, content, author_id, time) values('理性讨论，哪个区的封面最好看', '如题 zszs', 1, '2018/2/15 17:00');
+insert into posts(title, content, author_id, time) values('如图，我同学的穿搭是什么水平', '如题 zszs', 1, '2018/2/15 16:38');
+insert into posts(title, content, author_id, time) values('父亲即将续弦，大半夜不吐不快', '如题 zszs', 1, '2018/2/15 16:33');
+insert into posts(title, content, author_id, time) values('应届生offer选择，腾讯40W和创业公司50W', '如题 zszs', 1, '2018/2/15 19:22');
+insert into posts(title, content, author_id, time) values('今天的事真的是it惹得吗', '如题 zszs', 1, '2018/2/15 16:38');
+insert into posts(title, content, author_id, time) values('说说几个自己感觉不打职业比较可惜的主播', '如题 zszs', 1, '2018/2/15 16:33');
+insert into posts(title, content, author_id, time) values('这配音天秀！zt', '如题 zszs', 1, '2018/2/15 16:38');
+insert into posts(title, content, author_id, time) values('张学良对蒋介石算功大于过吗', '如题 zszs', 1, '2018/2/15 16:33');
+insert into posts(title, content, author_id, time) values('一个人的团圆饭什么水平', '如题 zszs', 1, '2018/2/15 16:33');
+insert into posts(title, content, author_id, time) values('我老婆认为吃味精非常有害，怎么办', '如题 zszs', 1, '2018/2/15 16:38');
+insert into posts(title, content, author_id, time) values('如果美国输掉中途岛海战，会有什么后果', '如题 zszs', 1, '2018/2/15 16:33');
+insert into posts(title, content, author_id, time) values('库里神奇不在，到底是谁的问题', '如题 zszs', 1, '2018/2/15 16:33');
+insert into posts(title, content, author_id, time) values('日常提问帖，30W预算买车求助', '如题 zszs', 1, '2018/2/15 16:38');
+insert into posts(title, content, author_id, time) values('西部排名太可怕了', '如题 zszs', 1, '2018/2/15 16:33');
+insert into posts(title, content, author_id, time) values('大年三十脱单什么水平', '真的不是两个号，表情包太萌，也是没办法的，为了追女孩，只能用这些羞耻的表情包，问一个JR们，下一步是不是可以上垒了', 1, '2018/2/15 16:33');

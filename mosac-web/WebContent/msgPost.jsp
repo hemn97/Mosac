@@ -19,7 +19,7 @@
     }  
     function go()
     {
-    window.history.go(-1);
+    	window.history.go(-1); 
     }
     setTimeout("go()",3000);
 </script> 
@@ -27,6 +27,6 @@
 <body style="text-align: center;" onload="returnUrlByTime()">
 <h1 style="color:green;">${msg}</h1>
 <h3><span id="layer">3</span>秒后，自动返回上一页</h3>
-<a href="#" onclick="javascript:history.back(-1);">立即返回</a>
+<a href="#" onclick="javascript:history.go(-1);">立即返回</a>
 </body>
 </html>

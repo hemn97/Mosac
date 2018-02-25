@@ -1,15 +1,17 @@
 package dao;
 
-import cn.itcast.jdbc.TxQueryRunner;
 import domain.PageBean;
 import domain.Post;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
+
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 
 /**
@@ -17,10 +19,15 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
  * @author Administrator
  */
 public class PostDao {
-    private QueryRunner qr = new TxQueryRunner();
+	QueryRunner qr;
+	public PostDao() {
+		ComboPooledDataSource dataSource = new ComboPooledDataSource();
+		qr = new QueryRunner(dataSource, true);
+	}
 	
     public PageBean<Post> FuzzyQuery(int pc, int pr, String selectType, String keyword)
     {
+
         try{
             PageBean<Post> pb=new PageBean<>();
             pb.setPc(pc);	// 设置当前页码
@@ -43,14 +50,13 @@ public class PostDao {
             
             int tr=num.intValue();
             pb.setTr(tr);
-
-            StringBuilder sql=new StringBuilder("select * from view_post ");
-            StringBuilder lmitSql=new StringBuilder(" limit ?,?");
-
-            params.add((pc-1)*pr);
-            params.add(pr);
             
-            List<Post> beanList=qr.query(sql.append(whereSql).append(lmitSql).toString(),new BeanListHandler<Post>(Post.class),params.toArray());
+            int m = (pc-1)*pr;
+            StringBuilder sql=new StringBuilder("select top " + Integer.toString(m+pr) + " * from view_post ");
+            StringBuilder extraSql=new StringBuilder(" and post_id not in (select top " + 
+            		Integer.toString(m) + " post_id from view_post)");
+            
+            List<Post> beanList=qr.query(sql.append(whereSql).append(extraSql).toString(),new BeanListHandler<Post>(Post.class),params.toArray());
             pb.setBeanList(beanList);
 
             return pb;
@@ -115,9 +121,11 @@ public class PostDao {
             int tr=number.intValue();
             pb.setTr(tr);
             // 查询当前页码的结果，保存在beanList中
-            sql="select * from view_post limit ?,?";
-            Object[] params={(pc-1)*pr, pr};
-            List<Post> beanList=qr.query(sql, new BeanListHandler<>(Post.class), params);
+            // 取第m条到n条，m=(pc-1)*pr, n=m+pr
+            int m = (pc-1)*pr;
+            sql = "select top " + Integer.toString(m+pr) + " * from view_post where post_id not in (select top "
+                	+ Integer.toString(m) + " post_id from view_post)";
+            List<Post> beanList=qr.query(sql, new BeanListHandler<>(Post.class));
 
             pb.setBeanList(beanList);
 

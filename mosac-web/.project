@@ -74,5 +74,10 @@
 			<type>1</type>
 			<location>E:/EclipseRepos/mosac-web/WebContent/images/select.png</location>
 		</link>
+		<link>
+			<name>WebContent/WEB-INF/lib/mssql-jdbc-6.2.2.jre8.jar</name>
+			<type>1</type>
+			<location>E:/EclipseRepos/mosac-web/WebContent/WEB-INF/lib/mssql-jdbc-6.2.2.jre8.jar</location>
+		</link>
 	</linkedResources>
 </projectDescription>
