@@ -10,10 +10,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.example.administrator.mosac_android.R;
-import com.example.administrator.mosac_android.adpater.pagerAdapter;
-import com.example.administrator.mosac_android.model.User;
-
-import org.greenrobot.eventbus.EventBus;
+import com.example.administrator.mosac_android.adapter.pagerAdapter;
 
 /**
  * Created by Administrator on 2017/12/20 0020.
@@ -36,14 +33,11 @@ public class Tab2Fragment extends Fragment implements RadioGroup.OnCheckedChange
     public static final int PAGE_THREE = 2;
     public static final int PAGE_FOUR = 3;
     public static final int PAGE_FIVE = 4;
-    // user
-    private User user;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_tab2,container,false);
-        user = (User) getArguments().getSerializable("user");
         mAdapter = new pagerAdapter(getChildFragmentManager());
-        mAdapter.bindUser(user);
+        mAdapter.bindUser(getArguments().getInt("user_id"));
         bindViews();
         all.setChecked(true);
         return view;

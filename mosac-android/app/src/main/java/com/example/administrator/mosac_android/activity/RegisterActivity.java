@@ -8,18 +8,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.administrator.mosac_android.event.RegisterEvent;
-import com.example.administrator.mosac_android.webservice.WebserviceHelper;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+import com.example.administrator.mosac_android.R;
+import com.example.administrator.mosac_android.presenter.UserPresenter;
+import com.example.administrator.mosac_android.utils.ToastUtils;
+import com.example.administrator.mosac_android.view.UserView;
 
 /**
- * Created by Administrator on 2017/12/20 0020.
+ * Created by Administrator on 2018/3/2 0002.
  */
 
-public class RegisterActivity extends Activity implements View.OnClickListener {
+public class RegisterActivity extends BaseActivity implements UserView{
     private Button confirm;
     private EditText edit_username;
     private EditText edit_contactnumber;
@@ -27,34 +25,31 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
     private EditText edit_password;
     private EditText edit_email;
     private EditText edit_department;
-    private WebserviceHelper webserviceHelper;
+    private UserPresenter userPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.example.administrator.mosac_android.R.layout.activity_register);
-        webserviceHelper = new WebserviceHelper();
-        // 注册EventBus
-        EventBus.getDefault().register(this);
+        setContentView(R.layout.activity_register);
         bindViews();
+        // 获取Presenter
+        userPresenter = new UserPresenter();
+        userPresenter.attachView(this);
+        setListener();
     }
-
     private void bindViews(){
-        confirm = (Button) findViewById(com.example.administrator.mosac_android.R.id.confirm);
-        edit_number = (EditText) findViewById(com.example.administrator.mosac_android.R.id.edit_number);
-        edit_password = (EditText) findViewById(com.example.administrator.mosac_android.R.id.edit_password);
-        edit_username = (EditText) findViewById(com.example.administrator.mosac_android.R.id.edit_username);
-        edit_email = (EditText) findViewById(com.example.administrator.mosac_android.R.id.edit_email);
-        edit_contactnumber = (EditText) findViewById(com.example.administrator.mosac_android.R.id.edit_contactnumber);
-        edit_department = (EditText) findViewById(com.example.administrator.mosac_android.R.id.edit_department);
-        // 设置点击监听事件
-        confirm.setOnClickListener(this);
+        confirm = (Button) findViewById(R.id.confirm);
+        edit_number = (EditText) findViewById(R.id.edit_number);
+        edit_password = (EditText) findViewById(R.id.edit_password);
+        edit_username = (EditText) findViewById(R.id.edit_username);
+        edit_email = (EditText) findViewById(R.id.edit_email);
+        edit_contactnumber = (EditText) findViewById(R.id.edit_contactnumber);
+        edit_department = (EditText) findViewById(R.id.edit_department);
     }
-
-    // 点击事件处理逻辑
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case com.example.administrator.mosac_android.R.id.confirm:
+    private void setListener() {
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 if(edit_username.getText().toString().equals("")) {
                     Toast.makeText(RegisterActivity.this, "姓名不能为空", Toast.LENGTH_LONG).show();
                 }
@@ -74,36 +69,29 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
                     Toast.makeText(RegisterActivity.this, "院系不能为空", Toast.LENGTH_LONG).show();
                 }
                 else {
-                    webserviceHelper.registerUser(edit_username.getText().toString(),
-                            edit_number.getText().toString(),
-                            edit_password.getText().toString(),
-                            edit_contactnumber.getText().toString(),
-                            edit_email.getText().toString(),
+                    userPresenter.getData("RegisterUser", edit_username.getText().toString(),
+                            edit_number.getText().toString(), edit_password.getText().toString(),
+                            edit_contactnumber.getText().toString(), edit_email.getText().toString(),
                             edit_department.getText().toString());
                 }
-                break;
-            default:
-                break;
-        }
+            }
+        });
     }
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onRegisterEvent(RegisterEvent event) {
-        boolean success = event.getSuccess();
-        if(success) {
-            Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_LONG).show();
-            // 登录验证成功
-            Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
-            intent.putExtra("number", edit_number.getText().toString());
-            startActivity(intent);
-            finish();
-        }
-        else {
-            Toast.makeText(RegisterActivity.this, "注册失败，学号已存在", Toast.LENGTH_LONG).show();
-        }
-    }
+
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
+    public void onOperationSuccess() {
+        // 注册成功
+        Toast.makeText(this, "注册成功", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //断开View引用
+        userPresenter.detachView();
+    }
+
 }

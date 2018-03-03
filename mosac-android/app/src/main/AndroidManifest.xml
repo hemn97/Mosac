@@ -11,29 +11,23 @@
         android:theme="@style/AppTheme" >
         <activity android:name=".activity.LoginActivity">
             <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER"/>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN"></action>
+                <category android:name="android.intent.category.LAUNCHER"></category>
             </intent-filter>
         </activity>
         <activity android:name=".activity.HomeActivity">
         </activity>
         <activity android:name=".activity.RegisterActivity">
-
         </activity>
-        <activity android:name=".activity.PostActivity">
-
+        <activity android:name=".activity.PostDetailActivity">
         </activity>
-        <activity android:name=".activity.InsertPostActivity">
-
+        <activity android:name=".activity.PostCommentActivity">
         </activity>
-        <activity android:name=".activity.ViewCommentActivity">
-
-        </activity>
-        <activity android:name=".activity.TeamActivity">
-
+        <activity android:name=".activity.TeamDetailActivity">
         </activity>
         <activity android:name=".activity.CreateTeamActivity">
-
+        </activity>
+        <activity android:name=".activity.CreatePostActivity">
         </activity>
     </application>
 </manifest>

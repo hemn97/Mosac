@@ -1,0 +1,9 @@
+E:\repos\Mosac\mosac-webservice\MosacWebService\MosacWebService\bin\MosacWebService.dll.config
+E:\repos\Mosac\mosac-webservice\MosacWebService\MosacWebService\bin\MosacWebService.dll
+E:\repos\Mosac\mosac-webservice\MosacWebService\MosacWebService\bin\MosacWebService.pdb
+E:\repos\Mosac\mosac-webservice\MosacWebService\MosacWebService\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\repos\Mosac\mosac-webservice\MosacWebService\MosacWebService\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\repos\Mosac\mosac-webservice\MosacWebService\MosacWebService\obj\Debug\MosacWebService.csprojResolveAssemblyReference.cache
+E:\repos\Mosac\mosac-webservice\MosacWebService\MosacWebService\obj\Debug\MosacWebService.csproj.CoreCompileInputs.cache
+E:\repos\Mosac\mosac-webservice\MosacWebService\MosacWebService\obj\Debug\MosacWebService.dll
+E:\repos\Mosac\mosac-webservice\MosacWebService\MosacWebService\obj\Debug\MosacWebService.pdb

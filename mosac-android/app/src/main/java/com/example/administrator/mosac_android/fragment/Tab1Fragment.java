@@ -1,8 +1,11 @@
 package com.example.administrator.mosac_android.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -12,56 +15,88 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.administrator.mosac_android.R;
-import com.example.administrator.mosac_android.activity.PostActivity;
-import com.example.administrator.mosac_android.adpater.PostAdapter;
-import com.example.administrator.mosac_android.event.PostListEvent;
-import com.example.administrator.mosac_android.event.UpdatePostListEvent;
-import com.example.administrator.mosac_android.model.Post;
-import com.example.administrator.mosac_android.model.User;
-import com.example.administrator.mosac_android.webservice.WebserviceHelper;
+import com.example.administrator.mosac_android.activity.LoginActivity;
+import com.example.administrator.mosac_android.activity.PostDetailActivity;
+import com.example.administrator.mosac_android.adapter.PostAdapter;
+import com.example.administrator.mosac_android.bean.Post;
+import com.example.administrator.mosac_android.presenter.PostPresenter;
+import com.example.administrator.mosac_android.presenter.UpdatePostPresenter;
+import com.example.administrator.mosac_android.presenter.UpdateTeamPresenter;
+import com.example.administrator.mosac_android.view.PostView;
+import com.example.administrator.mosac_android.view.UpdatePostView;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
+import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.Inflater;
 
 /**
  * Created by Administrator on 2017/12/20 0020.
  */
 
-public class Tab1Fragment extends Fragment {
+public class Tab1Fragment extends BaseFragment implements PostView, UpdatePostView {
     private EditText search_text;
     private ImageView search_bt;
     private RecyclerView postListview;
-    private WebserviceHelper webserviceHelper;
-    private List<Post> postList;
+    private View mView;
+    private PostPresenter postPresenter;
     private PostAdapter postAdapter;
-    private Post post;
-    private User user;
+    private List<Post> postList;
+    private int user_id;
+    private UpdatePostPresenter updatePostPresenter;
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            postList = (List<Post>) msg.getData().getParcelableArrayList("postList").get(0);
+            postAdapter.updateAdapter(postList);
+        }
+    };
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_tab1, container,false);
-        // 注册EventBus
-        EventBus.getDefault().register(this);
-        user = (User) getArguments().getSerializable("user");
-        webserviceHelper = new WebserviceHelper();
-        bindViews(view);
+        mView = super.onCreateView(inflater, container, savedInstanceState);
+        user_id = getArguments().getInt("user_id");
+        bindViews();
+        postAdapter = new PostAdapter(getContext(), R.layout.postitem_ly, null);
+        postListview.setAdapter(postAdapter);
         postListview.setLayoutManager(new LinearLayoutManager(getContext())); // 线性显示
-        return view;
+        setListener();
+        // getPresenter
+        postPresenter = new PostPresenter();
+        postPresenter.attachView(this);
+        updatePostPresenter = new UpdatePostPresenter();
+        updatePostPresenter.attachView(this);
+
+        return mView;
     }
     @Override
     public void onStart() {
         super.onStart();
-        webserviceHelper.queryPostList("");
+        if(search_text.getText().toString().length() == 0) {
+            postPresenter.getData("FindAllPosts", "");
+        }
     }
-    public void bindViews(View v) {
-        search_text = (EditText) v.findViewById(R.id.search_text);
-        search_bt = (ImageView) v.findViewById(R.id.search_bt);
-        postListview = (RecyclerView) v.findViewById(R.id.postlist);
+    public void initAllMembersView(Bundle savedInstanceState) {
+    }
+    public int getContentViewId() {
+        return R.layout.fragment_tab1;
+    }
+    public void bindViews() {
+        search_text = (EditText) mView.findViewById(R.id.search_text);
+        search_bt = (ImageView) mView.findViewById(R.id.search_bt);
+        postListview = (RecyclerView) mView.findViewById(R.id.postlist);
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //断开View引用
+        postPresenter.detachView();
+        updatePostPresenter.detachView();
+    }
+    public void setListener() {
         search_text.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -76,48 +111,45 @@ public class Tab1Fragment extends Fragment {
                     search_bt.setVisibility(View.VISIBLE);
                 } else {
                     search_bt.setVisibility(View.INVISIBLE);
-                    webserviceHelper.queryPostList("");
+                    postPresenter.getData("FindAllPosts", "");
                 }
             }
         });
         search_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-				String keyword = search_text.getText().toString();
-				webserviceHelper.queryPostList(keyword);
+                postPresenter.getData("FindAllPosts", search_text.getText().toString());
             }
         });
-    }
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onPostListEvent(PostListEvent event) {
-        postList = event.getPostList();
-        postAdapter = new PostAdapter(getContext(), R.layout.postitem_ly, postList);
-        postListview.setAdapter(postAdapter);
         postAdapter.setOnItemClickListener(new PostAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
-                post = postList.get(position);
-                post.setViews(post.getViews()+1);
-                webserviceHelper.updatePostViews(post.getPost_id());
-                Intent intent = new Intent(getContext(), PostActivity.class);
+                Post post = postList.get(position);
+                Intent intent = new Intent(getContext(), PostDetailActivity.class);
                 intent.putExtra("post", post);
-                intent.putExtra("user", user);
+                intent.putExtra("user_id", user_id);
+                updatePostPresenter.getData("UpdatePostViews", Integer.toString(post.getPost_id()), Integer.toString(user_id));
                 startActivity(intent);
             }
             @Override
             public void onLongClick(int position) {
-
             }
         });
     }
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onUpdatePostListEvent(UpdatePostListEvent event) {
-        webserviceHelper.queryPostList("");
-        Toast.makeText(getContext(), "发帖成功", Toast.LENGTH_LONG).show();
+
+    @Override
+    public void showPosts(List<Post> data) {
+        Message msg = Message.obtain();
+        Bundle bundle = new Bundle();
+        ArrayList list = new ArrayList();
+        list.add(data);
+        bundle.putParcelableArrayList("postList", list);
+        msg.setData(bundle);
+        mHandler.sendMessage(msg);
+    }
+
+    public void onOperationSuccess() {
+        // 后台更新访问记录成功
+        // do nothing
     }
 }

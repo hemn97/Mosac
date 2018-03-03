@@ -1,14 +1,18 @@
 package com.example.administrator.mosac_android.fragment;
 
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,35 +21,33 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.administrator.mosac_android.R;
+import com.example.administrator.mosac_android.activity.CreatePostActivity;
 import com.example.administrator.mosac_android.activity.CreateTeamActivity;
-import com.example.administrator.mosac_android.activity.InsertPostActivity;
 import com.example.administrator.mosac_android.activity.LoginActivity;
-import com.example.administrator.mosac_android.activity.PostActivity;
-import com.example.administrator.mosac_android.activity.TeamActivity;
-import com.example.administrator.mosac_android.adpater.PostAdapter;
-import com.example.administrator.mosac_android.adpater.TeamAdapter;
-import com.example.administrator.mosac_android.event.AddTeamEvent;
-import com.example.administrator.mosac_android.event.MyPostListEvent;
-import com.example.administrator.mosac_android.event.TeamlistDialogEvent;
-import com.example.administrator.mosac_android.model.Post;
-import com.example.administrator.mosac_android.model.Team;
-import com.example.administrator.mosac_android.model.User;
-import com.example.administrator.mosac_android.webservice.WebserviceHelper;
+import com.example.administrator.mosac_android.activity.PostDetailActivity;
+import com.example.administrator.mosac_android.activity.TeamDetailActivity;
+import com.example.administrator.mosac_android.adapter.PostAdapter;
+import com.example.administrator.mosac_android.adapter.TeamAdapter;
+import com.example.administrator.mosac_android.bean.Post;
+import com.example.administrator.mosac_android.bean.Team;
+import com.example.administrator.mosac_android.bean.User;
+import com.example.administrator.mosac_android.presenter.PostPresenter;
+import com.example.administrator.mosac_android.presenter.TeamPresenter;
+import com.example.administrator.mosac_android.presenter.UpdatePostPresenter;
+import com.example.administrator.mosac_android.view.PostView;
+import com.example.administrator.mosac_android.view.TeamView;
+import com.example.administrator.mosac_android.view.UpdatePostView;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/12/20 0020.
  */
 
-public class Tab4Fragment extends Fragment {
+public class Tab4Fragment extends BaseFragment implements PostView, TeamView, UpdatePostView {
     private TextView username;
     private TextView number;
     private TextView insertPost;
@@ -55,31 +57,60 @@ public class Tab4Fragment extends Fragment {
     private TextView createTeam;
     private Button exitButton;
     private User user;
+    private PostPresenter postPresenter;
+    private TeamPresenter teamPresenter;
+    private UpdatePostPresenter updatePostPresenter;
+    private View mView;
     private List<Post> postList;
-    private PostAdapter postAdapter;
+    private List<Team> teamList;
     private RecyclerView postlistview;
-    private WebserviceHelper webserviceHelper;
+    private PostAdapter postAdapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_tab4, container,false);
-        // 注册EventBus
-        EventBus.getDefault().register(this);
+        mView = super.onCreateView(inflater, container, savedInstanceState);
         user = (User) getArguments().getSerializable("user");
-        webserviceHelper = new WebserviceHelper();
-        bindViews(view);
-        return view;
+        bindViews();
+        // getPresenter
+        postPresenter = new PostPresenter();
+        postPresenter.attachView(this);
+        teamPresenter = new TeamPresenter();
+        teamPresenter.attachView(this);
+        updatePostPresenter = new UpdatePostPresenter();
+        updatePostPresenter.attachView(this);
+        setListener();
+
+        return mView;
     }
-    public void bindViews(View v) {
-        username = (TextView) v.findViewById(R.id.username);
-        number = (TextView) v.findViewById(R.id.number);
-        myPostList = (TextView) v.findViewById(R.id.myPostList) ;
-        myCreateTeam = (TextView) v.findViewById(R.id.myCreateTeam) ;
-        myJoinTeam = (TextView) v.findViewById(R.id.myJoinTeam) ;
-        createTeam = (TextView) v.findViewById(R.id.CreateTeam) ;
-        exitButton = (Button) v.findViewById(R.id.exit);
+
+    public void initAllMembersView(Bundle savedInstanceState) {
+    }
+    public int getContentViewId() {
+        return R.layout.fragment_tab4;
+    }
+
+    public void bindViews() {
+        username = (TextView) mView.findViewById(R.id.username);
+        number = (TextView) mView.findViewById(R.id.number);
+        myPostList = (TextView) mView.findViewById(R.id.myPostList) ;
+        myCreateTeam = (TextView) mView.findViewById(R.id.myCreateTeam) ;
+        myJoinTeam = (TextView) mView.findViewById(R.id.myJoinTeam) ;
+        createTeam = (TextView) mView.findViewById(R.id.CreateTeam) ;
+        exitButton = (Button) mView.findViewById(R.id.exit);
         username.setText(user.getUsername());
         number.setText(user.getNumber());
-        insertPost = v.findViewById(R.id.insertPost);
+        insertPost = mView.findViewById(R.id.insertPost);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        postPresenter.detachView();
+        teamPresenter.detachView();
+        updatePostPresenter.detachView();
+    }
+
+    public void setListener() {
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,29 +120,22 @@ public class Tab4Fragment extends Fragment {
                 getActivity().finish();
             }
         });
-        insertPost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), InsertPostActivity.class);
-                startActivity(intent);
-            }
-        });
         myPostList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                webserviceHelper.queryMyPost(user.getUser_id());
+                postPresenter.getData("FindMyPosts", Integer.toString(user.getUser_id()));
             }
         });
         myCreateTeam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                webserviceHelper.queryAddTeam(user.getUser_id());
+                teamPresenter.getData("FindMyTeam", Integer.toString(user.getUser_id()));
             }
         });
         myJoinTeam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                webserviceHelper.queryJoinTeam(user.getUser_id());
+                teamPresenter.getData("FindJoinTeam", Integer.toString(user.getUser_id()));
             }
         });
         createTeam.setOnClickListener(new View.OnClickListener() {
@@ -122,130 +146,115 @@ public class Tab4Fragment extends Fragment {
                 startActivity(intent);
             }
         });
-    }
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMyPostListEvent(MyPostListEvent event) {
-        LayoutInflater factor = LayoutInflater.from(getContext());
-        View view_in = factor.inflate(R.layout.mypostlist_dialog, null);
-        postlistview = view_in.findViewById(R.id.postlist);
-        postlistview.setLayoutManager(new LinearLayoutManager(getContext())); // 线性显示
-        postList = event.getPostList();
-        postAdapter = new PostAdapter(getContext(), R.layout.postitem_ly, postList);
-        postlistview.setAdapter(postAdapter);
-        postAdapter.setOnItemClickListener(new PostAdapter.OnItemClickListener() {
+        insertPost.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(int position) {
-                Post post = postList.get(position);
-                post.setViews(post.getViews()+1);
-                webserviceHelper.updatePostViews(post.getPost_id());
-                Intent intent = new Intent(getContext(), PostActivity.class);
-                intent.putExtra("post", post);
-                intent.putExtra("user", user);
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), CreatePostActivity.class);
+                intent.putExtra("user_id", user.getUser_id());
                 startActivity(intent);
             }
-            @Override
-            public void onLongClick(int position) {
-            }
         });
-//        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-//        alertDialog.setView(view_in);
-//        alertDialog.setNegativeButton("关闭", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//            }
-//        });
-//        alertDialog.show();
-
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setNegativeButton("关闭", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.setView(view_in);
-        alertDialog.show();
-
-        Window window = alertDialog.getWindow();
-        window.setGravity(Gravity.CENTER);
-        DisplayMetrics dm = new DisplayMetrics();
-        //获取屏幕信息
-        WindowManager windowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-        windowManager.getDefaultDisplay().getMetrics(dm);
-        int screenWidth = dm.widthPixels;
-        int screenHeigh = dm.heightPixels;
-        WindowManager.LayoutParams params = alertDialog.getWindow().getAttributes();//获取dialog信息
-        params.width = screenWidth;
-        params.height = screenHeigh / 2 ;
-        alertDialog.getWindow().setAttributes(params);//设置大小
     }
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onTeamlistDialogEvent(TeamlistDialogEvent event) {
-        LayoutInflater factor = LayoutInflater.from(getContext());
-        View view_in = factor.inflate(R.layout.teamlist_ly, null);
-        RecyclerView teamlist = view_in.findViewById(R.id.teamlist);
-        teamlist.setLayoutManager(new LinearLayoutManager(getContext())); // 线性显示
-        final List<Team> teamList = event.getTeamList();
-        TeamAdapter teamAdapter = new TeamAdapter(getContext(), R.layout.teamitem_ly, teamList);
-        teamlist.setAdapter(teamAdapter);
-        teamAdapter.setOnItemClickListener(new TeamAdapter.OnItemClickListener() {
-            @Override
-            public void onClick(int position) {
-                Intent intent = new Intent(getContext(), TeamActivity.class);
-                intent.putExtra("user", user);
-                intent.putExtra("team", teamList.get(position));
-                startActivity(intent);
-            }
-            @Override
-            public void onLongClick(int position) {
-            }
-        });
-//        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-//        alertDialog.setMessage("我的队伍");
-//        alertDialog.setView(view_in);
-//        alertDialog.setNegativeButton("关闭", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//            }
-//        });
-//        alertDialog.show();
 
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            postList = (List<Post>) msg.getData().getParcelableArrayList("postList").get(0);
+            LayoutInflater factor = LayoutInflater.from(getContext());
+            View view_in = factor.inflate(R.layout.mypostlist_dialog, null);
+            postlistview = view_in.findViewById(R.id.postlist);
+            postlistview.setLayoutManager(new LinearLayoutManager(getContext())); // 线性显示
+            postAdapter = new PostAdapter(getContext(), R.layout.postitem_ly, null);
+            postlistview.setAdapter(postAdapter);
+            postAdapter.updateAdapter(postList);
+            postAdapter.setOnItemClickListener(new PostAdapter.OnItemClickListener() {
+                @Override
+                public void onClick(int position) {
+                    Post post = postList.get(position);
+                    Intent intent = new Intent(getContext(), PostDetailActivity.class);
+                    intent.putExtra("post", post);
+                    intent.putExtra("user_id", user.getUser_id());
+                    updatePostPresenter.getData("UpdatePostViews", Integer.toString(post.getPost_id()), Integer.toString(user.getUser_id()));
+                    startActivity(intent);
+                }
+                @Override
+                public void onLongClick(int position) {
+                }
+            });
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setNegativeButton("关闭", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.setView(view_in);
-        alertDialog.show();
-
-        Window window = alertDialog.getWindow();
-        window.setGravity(Gravity.CENTER);
-        DisplayMetrics dm = new DisplayMetrics();
-        //获取屏幕信息
-        WindowManager windowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-        windowManager.getDefaultDisplay().getMetrics(dm);
-        int screenWidth = dm.widthPixels;
-        int screenHeigh = dm.heightPixels;
-        WindowManager.LayoutParams params = alertDialog.getWindow().getAttributes();//获取dialog信息
-        params.width = screenWidth;
-        params.height = screenHeigh / 2 ;
-        alertDialog.getWindow().setAttributes(params);//设置大小
-    }
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onAddTeamEvent(AddTeamEvent event) {
-        if(event.getSuccess() == true) {
-            Toast.makeText(getContext(), "创建活动队伍成功", Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(getContext(), "创建活动队伍失败", Toast.LENGTH_LONG).show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setNegativeButton("关闭", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.setView(view_in);
+            alertDialog.show();
         }
+    };
+
+    private Handler teamHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            teamList = (List<Team>) msg.getData().getParcelableArrayList("teamList").get(0);
+            LayoutInflater factor = LayoutInflater.from(getContext());
+            View view_in = factor.inflate(R.layout.teamlist_ly, null);
+            RecyclerView teamlist = view_in.findViewById(R.id.teamlist);
+            teamlist.setLayoutManager(new LinearLayoutManager(getContext())); // 线性显示
+            TeamAdapter teamAdapter = new TeamAdapter(getContext(), R.layout.teamitem_ly, null);
+            teamlist.setAdapter(teamAdapter);
+            teamAdapter.updateAdapter(teamList);
+            teamAdapter.setOnItemClickListener(new TeamAdapter.OnItemClickListener() {
+                @Override
+                public void onClick(int position) {
+                    Intent intent = new Intent(getContext(), TeamDetailActivity.class);
+                    intent.putExtra("user_id", user.getUser_id());
+                    intent.putExtra("team", teamList.get(position));
+                    startActivity(intent);
+                }
+                @Override
+                public void onLongClick(int position) {
+                }
+            });
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setNegativeButton("关闭", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.setView(view_in);
+            alertDialog.show();
+        }
+    };
+
+    @Override
+    public void showPosts(List<Post> data) {
+        Message msg = Message.obtain();
+        Bundle bundle = new Bundle();
+        ArrayList list = new ArrayList();
+        list.add(data);
+        bundle.putParcelableArrayList("postList", list);
+        msg.setData(bundle);
+        mHandler.sendMessage(msg);
     }
+
+    public void showTeams(List<Team> data) {
+        Message msg = Message.obtain();
+        Bundle bundle = new Bundle();
+        ArrayList list = new ArrayList();
+        list.add(data);
+        bundle.putParcelableArrayList("teamList", list);
+        msg.setData(bundle);
+        teamHandler.sendMessage(msg);
+    }
+
+    public void onOperationSuccess() {
+        // 后台更新访问记录成功
+        // do nothing
+    }
+
 }

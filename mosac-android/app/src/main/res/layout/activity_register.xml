@@ -218,7 +218,7 @@
             android:layout_height="50dp">
             <Button
                 android:id="@+id/confirm"
-                android:text="注册并登录"
+                android:text="注册"
                 android:textColor="#FFF"
                 android:textSize="18sp"
                 android:background="@drawable/button1"
