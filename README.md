@@ -2,7 +2,7 @@
 ## 项目说明
 一款面向大学校园的社交型应用软件，具备用户系统、论坛系统以及组队系统。 </br>
 包含面向用户的Android端以及面向管理员的Web端。 </br>
-Demo演示视频：  </br>
+Demo演示视频：Android-Demo.mp4   </br>
 ## 数据库
 使用SQL Server数据库进行存储数据。 </br>
 Android端与数据库间的通信采用WebService中间件，Web端与数据库间的通信直接使用JDBC进行连接。
