@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.administrator.mosac_android.bean.Post;
 import com.example.administrator.mosac_android.callback.Callback;
+import com.example.administrator.mosac_android.utils.ThreadPoolUtils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -24,8 +25,7 @@ import java.util.List;
 public class PostModel extends BaseModel<List<Post>>{
     @Override
     public void execute(final Callback<List<Post>> callback) {
-        // 获取数据
-        new Thread(new Runnable() {
+        ThreadPoolUtils.getInstance().execute(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -97,6 +97,6 @@ public class PostModel extends BaseModel<List<Post>>{
                     e.printStackTrace();
                 }
             }
-        }).start();
+        });
     }
 }

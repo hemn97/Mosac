@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.administrator.mosac_android.bean.Comment;
 import com.example.administrator.mosac_android.bean.Post;
 import com.example.administrator.mosac_android.callback.Callback;
+import com.example.administrator.mosac_android.utils.ThreadPoolUtils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -15,6 +16,7 @@ import org.ksoap2.transport.HttpTransportSE;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * Created by Administrator on 2018/3/1 0001.
@@ -23,8 +25,7 @@ import java.util.List;
 public class CommentModel extends BaseModel<List<Comment>>{
     @Override
     public void execute(final Callback<List<Comment>> callback) {
-        // 获取数据
-        new Thread(new Runnable() {
+        ThreadPoolUtils.getInstance().execute(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -63,6 +64,6 @@ public class CommentModel extends BaseModel<List<Comment>>{
                     e.printStackTrace();
                 }
             }
-        }).start();
+        });
     }
 }

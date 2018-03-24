@@ -2,6 +2,7 @@ package com.example.administrator.mosac_android.model;
 
 import com.example.administrator.mosac_android.bean.User;
 import com.example.administrator.mosac_android.callback.Callback;
+import com.example.administrator.mosac_android.utils.ThreadPoolUtils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,8 +21,7 @@ import java.util.List;
 public class ApplicantModel extends BaseModel<List<User>> {
     @Override
     public void execute(final Callback<List<User>> callback) {
-        // 获取数据
-        new Thread(new Runnable() {
+        ThreadPoolUtils.getInstance().execute(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -62,6 +62,6 @@ public class ApplicantModel extends BaseModel<List<User>> {
                     e.printStackTrace();
                 }
             }
-        }).start();
+        });
     }
 }

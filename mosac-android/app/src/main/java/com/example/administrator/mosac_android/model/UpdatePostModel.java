@@ -2,6 +2,7 @@ package com.example.administrator.mosac_android.model;
 
 import com.example.administrator.mosac_android.bean.User;
 import com.example.administrator.mosac_android.callback.Callback;
+import com.example.administrator.mosac_android.utils.ThreadPoolUtils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,8 +18,7 @@ import org.ksoap2.transport.HttpTransportSE;
 public class UpdatePostModel extends BaseModel<String> {
     @Override
     public void execute(final Callback<String> callback) {
-        // 获取数据
-        new Thread(new Runnable() {
+        ThreadPoolUtils.getInstance().execute(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -76,6 +76,6 @@ public class UpdatePostModel extends BaseModel<String> {
                     e.printStackTrace();
                 }
             }
-        }).start();
+        });
     }
 }
